@@ -60,8 +60,8 @@ public class ParsingError {
 
     public static class NumberOutOfTheBoundError extends Error {
 
-        public NumberOutOfTheBoundError() {
-            super("Number is out of the bound");
+        public NumberOutOfTheBoundError(Number input, Number bound) {
+            super("Number is out of the bound (input = " + input + ", bound = " + bound + ")");
         }
     }
 

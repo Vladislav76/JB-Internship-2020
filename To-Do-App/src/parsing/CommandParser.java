@@ -32,11 +32,10 @@ public class CommandParser {
                 if (isDeleteCmd) return new Either.Left<>(new DeleteTaskCommand(taskID));
                 else return new Either.Left<>(new ChangeTaskCheckCommand(taskID));
             case "show":
-                // default values
+                // set default values for option parameters
                 FilterMode mode = FilterMode.ALL;
-                int pageNumber = 1;
-                int pageCapacity = 50;
-                int maxPageCapacity = 1000;
+                int pageNumber = CommandLibrary.PAGE_NUMBER_DEFAULT_VALUE;
+                int pageCapacity = CommandLibrary.PAGE_CAPACITY_DEFAULT_VALUE;
 
                 int k = 1;
 
@@ -63,7 +62,7 @@ public class CommandParser {
                                 pageNumber = parsingNumberResult.toLeft().getValue().intValue();
                             } else {
                                 pageCapacity = parsingNumberResult.toLeft().getValue().intValue();
-                                if (pageCapacity > maxPageCapacity) return new Either.Right<>(new ParsingError.NumberOutOfTheBoundError());
+                                if (pageCapacity > CommandLibrary.MAX_PAGE_CAPACITY) return new Either.Right<>(new ParsingError.NumberOutOfTheBoundError(pageCapacity, CommandLibrary.MAX_PAGE_CAPACITY));
                             }
 
                             break;
